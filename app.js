@@ -2,38 +2,38 @@ const express = require('express');
 const app = express();
 
 // Middleware to check working hours
-const workingHoursMiddleware = (req, res, next) => {
-  const now = new Date();
-  const dayOfWeek = now.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
-  const hourOfDay = now.getHours();
+// const workingHoursMiddleware = (req, res, next) => {
+//   const now = new Date();
+//   const dayOfWeek = now.getDay(); 
+//   const hourOfDay = now.getHours();
 
-  if (dayOfWeek >= 1 && dayOfWeek <= 5 && hourOfDay >= 9 && hourOfDay < 17) {
-    next();
-  } else {
-    res.status(503).send('The web application is only available during working hours.');
-  }
-};
+//   if (dayOfWeek >= 1 && dayOfWeek <= 5 && hourOfDay >= 9 && hourOfDay < 17) {
+//     next();
+//   } else {
+//     res.status(503).send('The web application is only available during working hours from 9 to 17.');
+//   }
+// };
 
-// Use tailwindcss for styling
-app.use(express.static('public')); // Assuming your CSS is in a 'public' folder
+// app.use(workingHoursMiddleware);
 
-// Use custom middleware for all routes
-app.use(workingHoursMiddleware);
+app.use(express.static('public'));
 
-// Define routes
+
+
+
+
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/home.html'); // Replace with your actual file path
+  res.sendFile(__dirname + '/views/home.html'); 
 });
 
 app.get('/services', (req, res) => {
-  res.sendFile(__dirname + '/views/services.html'); // Replace with your actual file path
+  res.sendFile(__dirname + '/views/services.html'); 
 });
 
 app.get('/contact', (req, res) => {
-  res.sendFile(__dirname + '/views/contact.html'); // Replace with your actual file path
+  res.sendFile(__dirname + '/views/contact.html'); 
 });
 
-// Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
